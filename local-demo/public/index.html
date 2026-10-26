@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#087b42">
+  <meta name="description" content="小七超商模擬店家；展示資料、本機購物袋，不提供真實付款。">
+  <title>小七超商｜模擬展示</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="demo-ribbon">小七超商模擬店家 · 商品與價格皆為展示資料 · 不連接 Shopify、不收款</div>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="小七超商首頁">
+      <span class="brand-mark">7</span><span class="brand-name"><strong>小七超商</strong><small>MINI SEVEN STORE</small></span>
+    </a>
+    <nav aria-label="主要導覽"><a href="#shelf">今日優惠商品</a><a href="#support">AI 客服</a></nav>
+    <button class="bag-trigger" id="bag-trigger" type="button" aria-label="開啟本機購物袋">購物袋 <span id="bag-count">0</span></button>
+  </header>
+
+  <main>
+    <section class="hero section-wrap" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot"></span> YOUR TITLE</p>
+        <h1>美食、用品，<br><em>全都有。</em></h1>
+        <p class="hero-lede">美食新品、盲盒、生活用品，應有盡有！</p>
+        <p class="hero-lede">想問問題？ 讓 小七 客服 為您回答。</p>
+        <div class="hero-actions"><a class="button button-green" href="#shelf">逛逛優惠商品 <span>↗</span></a><a class="text-link" href="#support">詢問小七客服 →</a></div>
+        <div class="hero-meta"><span>不需要 Shopify 憑證</span><span>不會建立訂單或付款</span></div>
+      </div>
+      <div class="hero-art" aria-label="本機展示店視覺">
+        <div class="art-orbit"></div><div class="art-card art-card-back"><span>AI Dialogue</span><strong>顧客查詢<br>即時回覆</strong></div>
+        <div class="art-card art-card-front"><div class="art-stripes"><i></i><i></i><i></i></div><span>01 / MINI SEVEN STORE</span><strong>小七超商</strong><small>模擬展示 · 無真實交易</small></div>
+        <span class="art-sticker">LOCAL<br>ONLY</span>
+      </div>
+    </section>
+
+    <section class="section-wrap shelf-section" id="shelf">
+      <div class="section-heading"><div><p class="eyebrow">Today's Discount</p><h2>今日優惠商品</h2></div><span class="shelf-note">商品共 <b id="product-count">—</b> 款</span></div>
+      <div class="product-grid" id="product-grid" aria-live="polite"><div class="loading-card">正在讀取 SQLite 商品資料…</div></div>
+      <p class="disclaimer">商品名稱與價格只用於課堂示範，不代表 7-ELEVEN 真實商品或門市售價。</p>
+    </section>
+
+    <section class="support-section section-wrap" id="support">
+      <div class="support-intro">
+        <p class="eyebrow">MINI AI CUSTOMER SUPPORT</p><h2>顧客查詢，<br><em>AI 即時回覆。</em></h2>
+        <p>每題由本機 Ollama Agent 先選工具，客服工具在伺服器端查 SQLite 或執行計算。找不到資料就明確說查無資料，不靠模型記憶猜答案。</p>
+        <div class="model-status" id="model-status" role="status">正在檢查本機 Ollama…</div>
+        <div class="tool-legend"><span>SQLite FAQ</span><span>匿名示範紀錄</span><span>程式計算</span><span>官方客服管道</span></div>
+      </div>
+      <div class="chat-card">
+        <div class="chat-header"><div class="avatar">7</div><div><strong>小七客服</strong><small>Ollama · 僅工具查詢</small></div><span class="live-indicator">MINI SEVEN</span></div>
+        <div class="chat-messages" id="chat-messages" aria-live="polite" aria-label="客服對話">
+          <article class="message message-agent"><div class="bubble">嗨！我在本機課堂示範客服資料庫中查資料。你可以問官方 FAQ、示範紀錄或示範商品計算；我不會查真實訂單或門市即時資訊。</div></article>
+        </div>
+        <div class="suggestions" id="suggestions"><button type="button" data-prompt="冰咖啡兩杯多少錢？">冰咖啡兩杯多少錢？</button><button type="button" data-prompt="我要查詢包裹進度">我要查詢包裹進度</button></div>
+        <form class="chat-form" id="chat-form"><label class="sr-only" for="chat-input">輸入客服問題</label><input id="chat-input" name="message" maxlength="500" autocomplete="off" placeholder="輸入問題，最多 500 字…" required><button type="submit" aria-label="送出問題">送出 <span>↑</span></button></form>
+        <p class="chat-footnote">對話只送到你電腦上的本機 Ollama；不連接即時真人排班。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><a class="brand brand-footer" href="#home"><span class="brand-mark">7</span><span class="brand-name"><strong>小七超商</strong><small>本機課堂示範</small></span></a><p>資料來源為本專案 CSV／SQLite。此本機展示不連接 Shopify，不建立訂單或處理付款。</p><a href="https://www.7-11.com.tw/faq.aspx" target="_blank" rel="noreferrer">7-ELEVEN 官方客服頁 ↗</a></footer>
+
+  <dialog class="bag-dialog" id="bag-dialog" aria-labelledby="bag-title"><div class="bag-heading"><div><p class="eyebrow">LOCAL DEMO CART</p><h2 id="bag-title">本機購物袋</h2></div><button id="bag-close" class="icon-button" type="button" aria-label="關閉購物袋">×</button></div><div id="bag-lines" class="bag-lines"></div><div class="bag-total"><span>示範小計</span><strong id="bag-subtotal">NT$0</strong></div><p class="bag-notice">本機購物袋只保存在此瀏覽器，不會傳送給 Shopify。</p><button id="demo-checkout" class="button button-green checkout-button" type="button">模擬結帳說明 <span>↗</span></button></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

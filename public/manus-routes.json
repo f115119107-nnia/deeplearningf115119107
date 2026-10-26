@@ -1,0 +1,1 @@
+{"routes":[{"path":"/","title":"小七補給站"},{"path":"/collections","title":"商品貨架"},{"path":"/collections/:handle","title":"商品分類"},{"path":"/products/:handle","title":"商品詳情"},{"path":"/search","title":"商品搜尋"},{"path":"/cart","title":"購物袋"},{"path":"/chat","title":"AI 文字客服"}]}

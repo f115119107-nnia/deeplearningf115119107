@@ -1,0 +1,14 @@
+[
+  {"id":"T01","category":"FAQ","question":"7-ELEVEN 客服電話是多少？","expectedTool":"search_faq","expectedContains":"0800-008711"},
+  {"id":"T02","category":"FAQ","question":"門市商品或服務意見要去哪裡反映？","expectedTool":"search_faq","expectedContains":"門市服務/商品/活動問題與意見"},
+  {"id":"T03","category":"FAQ","question":"交貨便寄件人和取件人的姓名要怎麼填？","expectedTool":"search_faq","expectedContains":"真實姓名"},
+  {"id":"T04","category":"FAQ","question":"付款包裹取件要告訴店員什麼資料？","expectedTool":"search_faq","expectedContains":"手機末三碼"},
+  {"id":"T05","category":"FAQ","question":"交貨便貨態查詢在哪裡？","expectedTool":"search_faq","expectedContains":"貨態查詢"},
+  {"id":"T06","category":"FAQ","question":"OPENPOINT APP 的 0 元取件認證碼能用在所有包裹嗎？","expectedTool":"search_faq","expectedContains":"合資格包裹"},
+  {"id":"T07","category":"匿名紀錄","question":"示範紀錄 DEMO-PARCEL-001 的狀態是什麼？","expectedTool":"lookup_demo_record","expectedContains":"DEMO-PARCEL-001"},
+  {"id":"T08","category":"計算","question":"計算課堂示範商品：海苔飯糰 2 個、冰咖啡 1 杯，總額多少？","expectedTool":"calculate_demo_basket","expectedContains":"NT$133"},
+  {"id":"T09","category":"計算","question":"一杯冰咖啡的示範價是多少？","expectedTool":"calculate_demo_basket","expectedContains":"NT$55"},
+  {"id":"T10","category":"真人轉接","question":"我附近忠孝東路門市現在有海苔飯糰庫存嗎？請幫我問真人。","expectedTool":"transfer_to_human","expectedContains":"沒有連接即時真人排班"},
+  {"id":"T11","category":"未命中","question":"查一下虛構紀錄 DEMO-PARCEL-999 的貨態。","expectedTool":"lookup_demo_record","expectedFirstStatus":"not_found","expectedContains":"https://www.7-11.com.tw/faq.aspx","expectedHuman":true},
+  {"id":"T12","category":"未命中／真人轉接","question":"請保證今天哪間店一定有商品，並確認實際門市營業時間。","expectedTool":"transfer_to_human","expectedContains":"https://www.7-11.com.tw/faq.aspx","expectedHuman":true}
+]

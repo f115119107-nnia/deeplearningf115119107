@@ -1,0 +1,69 @@
+```gitignore
+# Local Git metadata
+/.git-local/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies
+/node_modules/
+
+# SQLite backup and temporary files
+data/support-before-faq-sync.sqlite
+data/*.sqlite-journal
+data/*.sqlite-wal
+data/*.sqlite-shm
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# React Router
+/.react-router/
+/build/
+```
+# Local inspection scripts
+/check-csv-preview.mjs
+/check-db-columns.mjs
+/check-db-public-safety.mjs
+/check-db-readonly.mjs
+/check-db-schema.mjs
+/check-faq-db.mjs
+/check-faq.js
+/check-openpoint.js
+/test-faq-search.mjs
+
+# Local database backups
+/data/support-before-seed-fix.sqlite
+/data/support-before-faq-sync.sqlite
+/data/*.sqlite-journal
+/data/*.sqlite-wal
+/data/*.sqlite-shm
+
+# Local SQLite database
+/data/*.sqlite
+/data/*.sqlite-*
+# Local inspection scripts
+/check-public-db.mjs
+
+# Accidental nested repository
+/deeplearningf115119107/
+
+# Local upload preview script
+/check-upload-preview.mjs
+
+# Local agent tooling
+/.agents/
+
+# Local test reports
+/reports/
+
+# Local upload inspection script
+/check-upload-preview.mjs
+
+# Local inspection scripts
+/local-demo/public/check-db-public-safety.mjs
+/local-demo/test-faq-search.mjs
+/scripts/check-db-schema.mjs
