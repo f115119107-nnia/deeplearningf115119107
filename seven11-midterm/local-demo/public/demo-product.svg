@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 440" role="img" aria-labelledby="title desc">
+  <title id="title">小七課堂示範商品插畫</title>
+  <desc id="desc">抽象幾何紙袋與綠橘紅色條紋，表示本機虛構課堂商品。</desc>
+  <rect width="640" height="440" fill="#f0f2e8"/>
+  <circle cx="492" cy="92" r="76" fill="#f9c374" opacity=".62"/>
+  <circle cx="132" cy="345" r="104" fill="#dfece0"/>
+  <g transform="translate(215 74) rotate(-5 112 150)">
+    <path d="M42 85h230l-18 202H58L42 85Z" fill="#fffefa" stroke="#d7dfd3" stroke-width="5"/>
+    <path d="M95 88c4-48 23-70 62-70s58 22 62 70" fill="none" stroke="#087b42" stroke-width="12" stroke-linecap="round"/>
+    <rect x="43" y="114" width="230" height="17" rx="8" fill="#087b42"/>
+    <rect x="43" y="137" width="230" height="10" rx="5" fill="#f29128"/>
+    <rect x="43" y="153" width="230" height="7" rx="4" fill="#e54437"/>
+    <text x="157" y="211" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#17221b">DEMO ITEM</text>
+    <text x="157" y="240" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" letter-spacing="2" fill="#657168">LOCAL · FICTIONAL</text>
+  </g>
+  <path d="M82 84h50M107 59v50M514 311h60M544 281v60" stroke="#087b42" stroke-width="5" stroke-linecap="round" opacity=".5"/>
+</svg>

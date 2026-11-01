@@ -1,0 +1,12 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+/node_modules/
+data/*.sqlite
+
+# React Router
+/.react-router/
+/build/
+/customer-account-graphql-env.d.ts
+/storefront-graphql-env.d.ts
