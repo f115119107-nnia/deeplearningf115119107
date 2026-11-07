@@ -1,16 +1,16 @@
 id,record_type,status,summary,is_demo,record_type_en,status_en,summary_en
-DEMO-PARCEL-001,parcel,示範：已抵達取件門市,虛構的課堂測試紀錄，僅用來測試狀態查詢工具；不是實際包裹或顧客資料,1,Parcel,Demo: Arrived at pickup store,Fictional classroom test record used only to test the status-lookup tool; it is not a real parcel or customer record.
-DEMO-PARCEL-002,parcel,示範：配送途中,虛構的課堂測試紀錄，沒有對應的真實配送、姓名或電話,1,Parcel,Demo: In transit,"Fictional classroom test record with no corresponding real delivery, name, or phone number."
-DEMO-PARCEL-003,parcel,示範：資料待確認,虛構的課堂測試紀錄，狀態只用來驗證客服資料庫工具流程,1,Parcel,Demo: Details pending confirmation,Fictional classroom test record; its status is used only to validate the customer-service database tool flow.
-DEMO-PARCEL-004,parcel,示範：退回流程測試,虛構的課堂測試紀錄，並非真實退件或門市庫存資訊,1,Parcel,Demo: Return-flow test,Fictional classroom test record; it is not a real return or store inventory record.
-DEMO-SERVICE-001,service,示範：已收到意見,虛構的課堂測試案件，沒有實際送出客服表單或通知真人,1,Service case,Demo: Feedback received,Fictional classroom test case; no customer-service form was actually submitted and no person was notified.
-DEMO-SERVICE-002,service,示範：資料庫查詢練習,虛構的課堂測試案件，沒有真實顧客或回覆期限,1,Service case,Demo: Database lookup practice,Fictional classroom test case; there is no real customer or response deadline.
-DEMO-ORDER-001,order,示範：待確認的購物袋,虛構的 Shopify 店面測試案例，不代表真實訂單或付款狀態,1,Order,Demo: Cart pending confirmation,Fictional Shopify storefront test case; it does not represent a real order or payment status.
-DEMO-ORDER-002,order,示範：未建立結帳,虛構的 Shopify 店面測試案例，沒有真實顧客付款資料,1,Order,Demo: Checkout not created,Fictional Shopify storefront test case with no real customer payment information.
-DEMO-STORE-001,store,示範：不提供即時門市庫存,課堂測試用說明資料；此網站沒有串接真實門市庫存系統,1,Store information,Demo: No live store inventory provided,Classroom test information; this website is not connected to a real store inventory system.
-DEMO-STORE-002,store,示範：不提供門市營業狀態,課堂測試用說明資料；此網站沒有串接真實門市營業時段,1,Store information,Demo: No store-hours status provided,Classroom test information; this website is not connected to real store opening hours.
-DEMO-PARCEL-005,parcel,示範：寄件資料檢核練習,虛構案例用來測試寄件紀錄查詢工具；不含真實姓名或聯絡方式,1,Parcel,Demo: Shipping-details validation practice,Fictional case for testing parcel-shipping record lookup; it contains no real name or contact details.
-DEMO-PARCEL-006,parcel,示範：尚未送出門市作業,虛構案例僅測試不同狀態的資料庫回覆；不是實際包裹或門市資訊,1,Parcel,Demo: Store operation not submitted,Fictional case used only to test database responses for different statuses; it is not a real parcel or store record.
-DEMO-SERVICE-003,service,示範：等待人工聯絡指引,虛構案例不代表已送出客服表單或已通知真人,1,Service case,Demo: Awaiting guidance for human contact,Fictional case; it does not mean a customer-service form was submitted or a person was notified.
-DEMO-ORDER-003,order,示範：商品已選取尚未付款,虛構 Shopify 測試案例不包含真實顧客或交易資料,1,Order,"Demo: Item selected, payment not made",Fictional Shopify test case; it contains no real customer or transaction data.
-DEMO-STORE-003,store,示範：未連接即時門市資料,虛構說明資料用於測試未命中時應誠實回覆的情境,1,Store information,Demo: No live store data connection,Fictional explanatory record used to test an honest response when live data is unavailable.
+DEMO-PARCEL-001,parcel,已抵達取件門市,虛構的課堂測試紀錄，僅用來測試狀態查詢工具；不是實際包裹或顧客資料,1,Parcel,Demo: Arrived at pickup store,Fictional classroom test record used only to test the status-lookup tool; it is not a real parcel or customer record.
+DEMO-PARCEL-002,parcel,配送途中,虛構的課堂測試紀錄，沒有對應的真實配送、姓名或電話,1,Parcel,Demo: In transit,"Fictional classroom test record with no corresponding real delivery, name, or phone number."
+DEMO-PARCEL-003,parcel,資料待確認,虛構的課堂測試紀錄，狀態只用來驗證客服資料庫工具流程,1,Parcel,Demo: Details pending confirmation,Fictional classroom test record; its status is used only to validate the customer-service database tool flow.
+DEMO-PARCEL-004,parcel,退回流程測試,虛構的課堂測試紀錄，並非真實退件或門市庫存資訊,1,Parcel,Demo: Return-flow test,Fictional classroom test record; it is not a real return or store inventory record.
+DEMO-SERVICE-001,service,已收到意見,虛構的課堂測試案件，沒有實際送出客服表單或通知真人,1,Service case,Demo: Feedback received,Fictional classroom test case; no customer-service form was actually submitted and no person was notified.
+DEMO-SERVICE-002,service,資料庫查詢練習,虛構的課堂測試案件，沒有真實顧客或回覆期限,1,Service case,Demo: Database lookup practice,Fictional classroom test case; there is no real customer or response deadline.
+DEMO-ORDER-001,order,待確認的購物袋,虛構的 Shopify 店面測試案例，不代表真實訂單或付款狀態,1,Order,Demo: Cart pending confirmation,Fictional Shopify storefront test case; it does not represent a real order or payment status.
+DEMO-ORDER-002,order,未建立結帳,虛構的 Shopify 店面測試案例，沒有真實顧客付款資料,1,Order,Demo: Checkout not created,Fictional Shopify storefront test case with no real customer payment information.
+DEMO-STORE-001,store,不提供即時門市庫存,課堂測試用說明資料；此網站沒有串接真實門市庫存系統,1,Store information,Demo: No live store inventory provided,Classroom test information; this website is not connected to a real store inventory system.
+DEMO-STORE-002,store,不提供門市營業狀態,課堂測試用說明資料；此網站沒有串接真實門市營業時段,1,Store information,Demo: No store-hours status provided,Classroom test information; this website is not connected to real store opening hours.
+DEMO-PARCEL-005,parcel,寄件資料檢核練習,虛構案例用來測試寄件紀錄查詢工具；不含真實姓名或聯絡方式,1,Parcel,Demo: Shipping-details validation practice,Fictional case for testing parcel-shipping record lookup; it contains no real name or contact details.
+DEMO-PARCEL-006,parcel,尚未送出門市作業,虛構案例僅測試不同狀態的資料庫回覆；不是實際包裹或門市資訊,1,Parcel,Demo: Store operation not submitted,Fictional case used only to test database responses for different statuses; it is not a real parcel or store record.
+DEMO-SERVICE-003,service,等待人工聯絡指引,虛構案例不代表已送出客服表單或已通知真人,1,Service case,Demo: Awaiting guidance for human contact,Fictional case; it does not mean a customer-service form was submitted or a person was notified.
+DEMO-ORDER-003,order,商品已選取尚未付款,虛構 Shopify 測試案例不包含真實顧客或交易資料,1,Order,"Demo: Item selected, payment not made",Fictional Shopify test case; it contains no real customer or transaction data.
+DEMO-STORE-003,store,未連接即時門市資料,虛構說明資料用於測試未命中時應誠實回覆的情境,1,Store information,Demo: No live store data connection,Fictional explanatory record used to test an honest response when live data is unavailable.
