@@ -5,13 +5,14 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const databasePath = resolve(projectRoot, "data", "support.sqlite");
+const databasePath = resolve(projectRoot, "data", "local-demo.sqlite");
+const dbEnvironment = { ...process.env, SUPPORT_DB_FILE: "local-demo.sqlite" };
 
 function seedDatabase() {
   const seed = spawnSync(process.execPath, [resolve(projectRoot, "scripts", "seed-support-db.mjs")], {
     cwd: projectRoot,
     stdio: "inherit",
-    env: process.env,
+    env: dbEnvironment,
   });
   if (seed.error) {
     console.error(`無法初始化 SQLite：${seed.error.message}`);
@@ -29,15 +30,19 @@ function validateExistingDatabase() {
       SELECT
         (SELECT COUNT(*) FROM faq_entries) AS faq,
         (SELECT COUNT(*) FROM demo_records WHERE is_demo = 1) AS records,
-        (SELECT COUNT(*) FROM demo_products WHERE is_demo = 1) AS products
+        (SELECT COUNT(*) FROM demo_products WHERE is_demo = 1) AS products,
+        (SELECT COUNT(*) FROM rag_chunks) AS rag_chunks
     `).get();
-    if (Number(stats.faq) < 1 || Number(stats.records) < 1 || Number(stats.products) < 1) {
-      throw new Error("SQLite is missing seeded support rows.");
+    const productColumns = new Set(database.prepare("PRAGMA table_info(demo_products)").all().map((column) => column.name));
+    const requiredColumns = ["name_zh", "name_en", "aliases_zh", "aliases_en", "available"];
+    const missingColumns = requiredColumns.filter((column) => !productColumns.has(column));
+    if (Number(stats.faq) < 15 || Number(stats.records) < 15 || Number(stats.products) < 15 || Number(stats.rag_chunks) < 1 || missingColumns.length) {
+      throw new Error(`資料庫格式不是最新版；缺少欄位或資料量不足${missingColumns.length ? ` (${missingColumns.join(", ")})` : ""}。`);
     }
-    console.log("SQLite 示範資料已存在，直接沿用（不會刪除或重建）。");
+    console.log("SQLite 已就緒，安全重用（不刪除或重建）。");
     return true;
   } catch (error) {
-    console.error("無法讀取既有 SQLite 示範資料庫。請停止其他執行中的示範伺服器；若資料庫損壞，停止所有 Node 程序後刪除 data/support.sqlite，再重新啟動。", error instanceof Error ? error.message : "");
+    console.error("無法使用 SQLite。若是舊版 local-demo.sqlite，先停止所有本機示範伺服器，再刪除 data/local-demo.sqlite 後重新啟動；不要刪除 data/support.sqlite。", error instanceof Error ? error.message : "");
     return false;
   } finally {
     database?.close();
@@ -45,7 +50,7 @@ function validateExistingDatabase() {
 }
 
 if (!existsSync(databasePath)) {
-  console.log("首次啟動：由 CSV 建立 SQLite 示範資料庫。");
+  console.log("首次啟動：從 CSV 建立獨立 SQLite（不會改動 data/support.sqlite）。");
   seedDatabase();
 } else if (!validateExistingDatabase()) {
   process.exit(1);
@@ -53,13 +58,13 @@ if (!existsSync(databasePath)) {
 
 process.chdir(projectRoot);
 const { default: server } = await import("./server.mjs").catch((error) => {
-  console.error("無法啟動本機示範 HTTP server：", error instanceof Error ? error.message : error);
+  console.error("無法啟動 HTTP server：", error instanceof Error ? error.message : error);
   process.exit(1);
 });
 
 server.on("error", (error) => {
   if (error?.code === "EADDRINUSE") {
-    console.error("本機埠已被占用。請在另一個執行網站的終端機按 Ctrl+C，或用 LOCAL_DEMO_PORT 設定其他埠後重試。");
+    console.error("本機埠已被占用。請在另一個執行網站的終端機按 Ctrl+C，或用 LOCAL_DEMO_PORT 設定其他埠後重試。SQLite 不會被刪除。 ");
   } else {
     console.error("本機示範 server 啟動失敗：", error instanceof Error ? error.message : error);
   }
