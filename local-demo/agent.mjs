@@ -1,9 +1,9 @@
-import { DatabaseSync } from "node:sqlite";
+﻿import { DatabaseSync } from "node:sqlite";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const databasePath = resolve(projectRoot, "data", "support.sqlite");
+const databasePath = resolve(projectRoot, "data", "local-demo.sqlite");
 const ollamaBaseUrl = readLocalOllamaUrl();
 const ollamaModel = process.env.OLLAMA_MODEL?.trim() || "qwen2.5:3b";
 const MAX_STEPS = 3;
@@ -415,7 +415,7 @@ async function requestToolChoice(messages) {
   return payload.message;
 }
 
-export async function runSupportAgent(message) {
+export async function runSupportAgent(message, history, sessionId) {
   const userMessage = String(message ?? "").trim().slice(0, MAX_MESSAGE_LENGTH);
   if (!userMessage) throw new Error("請先輸入問題。");
   const messages = [
@@ -552,6 +552,48 @@ export async function getOllamaStatus() {
   }
 }
 
+export function listSavedReservations(sessionId, language = "zh") {
+  const safeSessionId = String(sessionId ?? "").trim();
+
+  // 沒有有效的 Session ID，不查詢任何紀錄。
+  if (!/^[0-9a-f-]{36}$/iu.test(safeSessionId)) {
+    return [];
+  }
+
+  const rows = database().prepare(`
+    SELECT
+      reservation_id,
+      items_json,
+      subtotal_twd,
+      created_at,
+      status
+    FROM demo_reservations
+    WHERE session_id = ?
+      AND is_demo = 1
+    ORDER BY created_at DESC
+    LIMIT 20
+  `).all(safeSessionId);
+
+  return rows.map((row) => {
+    let items = [];
+
+    try {
+      const parsed = JSON.parse(row.items_json);
+      items = Array.isArray(parsed) ? parsed : [];
+    } catch {
+      items = [];
+    }
+
+    return {
+      reservationId: row.reservation_id,
+      items,
+      subtotalTwd: Number(row.subtotal_twd),
+      createdAt: row.created_at,
+      status: row.status,
+    };
+  });
+}
+
 export function getSupportStats() {
   const db = database();
   return {
@@ -561,3 +603,5 @@ export function getSupportStats() {
     records: Number(db.prepare("SELECT COUNT(*) AS count FROM demo_records WHERE is_demo = 1").get().count),
   };
 }
+
+

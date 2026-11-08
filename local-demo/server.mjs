@@ -173,7 +173,7 @@ const server = createServer(async (request, response) => {
       const { id: sessionId } = readSessionId(request);
       const cookieHeaders = { "Set-Cookie": sessionCookie(sessionId) };
       try {
-        const result = await runSupportAgent({ message, history, sessionId });
+      const result = await runSupportAgent(message,history,sessionId);
         sendJson(response, 200, result, cookieHeaders);
       } catch (error) {
         const language = detectLanguage(message);
