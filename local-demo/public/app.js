@@ -1,6 +1,6 @@
 const CART_KEY = "seven11-demo-cart-v2";
 const HISTORY_KEY = "seven11-demo-chat-history-v2";
-const FALLBACK_GREETING = "嗨！我是小七補給站客服 Agent。我會先查詢 FAQ、規則或示範資料；示範預留只有在你明確確認後才會寫入本機資料庫。";
+const FALLBACK_GREETING = "嗨！我是小七超商客服 Agent。可在下方輸入欄進行查詢。";
 
 const elements = {
   productGrid: document.querySelector("#product-grid"),
