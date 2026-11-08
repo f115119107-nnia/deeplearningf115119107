@@ -28,9 +28,9 @@ function validateExistingDatabase() {
     database.exec("PRAGMA query_only = ON;");
     const stats = database.prepare(`
       SELECT
-        (SELECT COUNT(*) FROM faq_entries) AS faq,
-        (SELECT COUNT(*) FROM demo_records WHERE is_demo = 1) AS records,
-        (SELECT COUNT(*) FROM demo_products WHERE is_demo = 1) AS products,
+        (SELECT COUNT(*) FROM faq_info_entries) AS faq,
+        (SELECT COUNT(*) FROM records_info WHERE is_demo = 1) AS records,
+        (SELECT COUNT(*) FROM products_info WHERE is_demo = 1) AS products,
         (SELECT COUNT(*) FROM rag_chunks) AS rag_chunks
     `).get();
     const productColumns = new Set(database.prepare("PRAGMA table_info(demo_products)").all().map((column) => column.name));

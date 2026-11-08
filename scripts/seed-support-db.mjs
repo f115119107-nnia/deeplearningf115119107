@@ -92,14 +92,33 @@ function splitText(text, maxChars = 720, overlap = 90) {
   return chunks;
 }
 
-const faqRows = readCsv("faq.csv");
-const recordRows = readCsv("demo_records.csv");
-const productRows = readCsv("demo_products.csv");
-const ragRows = readCsv("rag_rules.csv");
-requireColumns(faqRows, "faq.csv", ["id", "topic", "question", "answer", "keywords", "topic_en", "question_en", "answer_en", "keywords_en", "source_type", "source_url", "is_demo"]);
-requireColumns(recordRows, "demo_records.csv", ["id", "record_type", "status", "summary", "record_type_en", "status_en", "summary_en", "is_demo"]);
-requireColumns(productRows, "demo_products.csv", ["id", "sku", "name_zh", "name_en", "aliases_zh", "aliases_en", "price_twd", "available", "description_zh", "description_en", "is_demo"]);
-requireColumns(ragRows, "rag_rules.csv", ["id", "title_zh", "title_en", "content_zh", "content_en", "keywords_zh", "keywords_en", "source_type", "source_url", "is_demo"]);
+const faqRows = readCsv("faq_info.csv");
+const recordRows = readCsv("records_info.csv");
+const productRows = readCsv("products_info.csv");
+const ragRows = readCsv("rag-rules.csv");
+
+requireColumns(faqRows, "faq_info.csv", [
+  "id", "topic", "question", "answer", "keywords",
+  "topic_en", "question_en", "answer_en", "keywords_en",
+  "source_type", "source_url", "is_demo"
+]);
+
+requireColumns(recordRows, "records_info.csv", [
+  "id", "record_type", "status", "summary",
+  "record_type_en", "status_en", "summary_en", "is_demo"
+]);
+
+requireColumns(productRows, "products_info.csv", [
+  "id", "sku", "name_zh", "name_en", "aliases_zh",
+  "aliases_en", "price_twd", "available",
+  "description_zh", "description_en", "is_demo"
+]);
+
+requireColumns(ragRows, "rag-rules.csv", [
+  "id", "title_zh", "title_en", "content_zh",
+  "content_en", "keywords_zh", "keywords_en",
+  "source_type", "source_url", "is_demo"
+]);
 
 const faqTopics = new Set(faqRows.map((row) => row.topic));
 if (faqRows.length < 15 || faqTopics.size < 8) {
@@ -259,16 +278,31 @@ try {
     db.exec("PRAGMA optimize;");
 
     const counts = {
-      faq: Number(db.prepare("SELECT COUNT(*) AS count FROM faq_entries").get().count),
-      topics: Number(db.prepare("SELECT COUNT(DISTINCT topic) AS count FROM faq_entries").get().count),
-      records: Number(db.prepare("SELECT COUNT(*) AS count FROM demo_records").get().count),
-      products: Number(db.prepare("SELECT COUNT(*) AS count FROM demo_products").get().count),
-      availableProducts: Number(db.prepare("SELECT COUNT(*) AS count FROM demo_products WHERE available = 1").get().count),
-      ragDocuments: ragRows.length,
-      ragChunks: chunkCount,
-      fts5: hasFts5,
-      database: dbFile,
-    };
+  faq: Number(db.prepare(
+    "SELECT COUNT(*) AS count FROM faq_entries"
+  ).get().count),
+
+  topics: Number(db.prepare(
+    "SELECT COUNT(DISTINCT topic) AS count FROM faq_entries"
+  ).get().count),
+
+  records: Number(db.prepare(
+    "SELECT COUNT(*) AS count FROM demo_records"
+  ).get().count),
+
+  products: Number(db.prepare(
+    "SELECT COUNT(*) AS count FROM demo_products"
+  ).get().count),
+
+  availableProducts: Number(db.prepare(
+    "SELECT COUNT(*) AS count FROM demo_products WHERE available = 1"
+  ).get().count),
+
+  ragDocuments: ragRows.length,
+  ragChunks: chunkCount,
+  fts5: hasFts5,
+  database: dbFile,
+};
     console.log(`SQLite support database seeded: ${databasePath}; ${JSON.stringify(counts)}`);
   } catch (error) {
     db.exec("ROLLBACK;");

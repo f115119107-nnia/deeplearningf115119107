@@ -102,6 +102,12 @@ const SYSTEM_PROMPT = `你是小七補給站本機課堂示範客服 Agent。
 7. 所有最終答案由伺服器根據工具結果產生。
 8. 示範商品、價格及紀錄均非 7-ELEVEN 真實資料。`;
 
+export function detectLanguage(text) {
+  return /[\u4e00-\u9fff]/.test(String(text ?? ""))
+    ? "zh"
+    : "en";
+}
+
 function normalize(value) {
   return String(value ?? "").normalize("NFKC").toLocaleLowerCase("zh-TW").replace(/[\s\p{P}\p{S}]+/gu, "");
 }
