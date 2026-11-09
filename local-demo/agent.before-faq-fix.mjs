@@ -34,8 +34,8 @@ function readLocalOllamaUrl() {
 
 export const TOOL_LABELS = {
   search_faq: "查詢 SQLite 客服知識庫",
-  lookup_demo_record: "查詢匿名示範紀錄",
-  calculate_demo_basket: "計算示範商品小計",
+  lookup_demo_record: "查詢匿名紀錄",
+  calculate_demo_basket: "商品小計",
   transfer_to_human: "查詢官方真人客服管道",
 };
 
@@ -90,12 +90,12 @@ const tools = [
 ];
 
 
-const SYSTEM_PROMPT = `你是小七補給站本機課堂示範客服 Agent。
+const SYSTEM_PROMPT = `你是小七超商客服 Agent。
 
 工具選擇規則：
 1. 使用者詢問取件方式、0 元包裹、付款、寄件、物流、客服電話、官方政策、服務規則、活動或一般常見問題時，必須優先使用 search_faq。
 2. 使用者詢問 DEMO- 開頭的虛構紀錄時，使用 lookup_demo_record。
-3. 使用者詢問 SQLite 示範商品的價格或購物小計時，使用 calculate_demo_basket。
+3. 使用者詢問 SQLite 商品的價格或購物小計時，使用 calculate_demo_basket。
 4. 只有在 FAQ 查無資料、涉及即時門市狀況、真實訂單、個人資料、客訴或需要真人判斷時，才使用 transfer_to_human。
 5. 不得只因為問題簡短或沒有提供訂單編號，就直接轉接真人。
 6. 每一輪只能呼叫一個工具；不得使用模型記憶直接回答，不得捏造事實。
@@ -309,7 +309,7 @@ function runTool(name, rawArgs, originalQuestion) {
       answerable: Boolean(first),
       data: { results },
       trace: { name, label: TOOL_LABELS[name], status: first ? "success" : "not_found", summary: first ? `SQLite 知識庫命中 ${results.length} 筆。` : "SQLite 沒有相符資料；未以模型記憶補答。" },
-      sources: first ? [{ label: `${first.sourceType === "official" ? "官方來源" : "示範資料"}：${first.topic}`, url: first.sourceUrl, kind: first.sourceType }] : [],
+      sources: first ? [{ label: `${first.sourceType === "official" ? "官方來源" : "資料"}：${first.topic}`, url: first.sourceUrl, kind: first.sourceType }] : [],
     };
   }
   if (name === "lookup_demo_record") {
@@ -317,7 +317,7 @@ function runTool(name, rawArgs, originalQuestion) {
     return {
       answerable: Boolean(record),
       data: { record: record ?? null },
-      trace: { name, label: TOOL_LABELS[name], status: record ? "success" : "not_found", summary: record ? "已讀取 SQLite 匿名虛構示範紀錄。" : "找不到此示範代碼；未查詢真實訂單。" },
+      trace: { name, label: TOOL_LABELS[name], status: record ? "success" : "not_found", summary: record ? "已讀取 SQLite 匿名紀錄。" : "找無此代碼；未查詢真實訂單。" },
       sources: [],
     };
   }
@@ -334,21 +334,21 @@ function runTool(name, rawArgs, originalQuestion) {
       const needle = normalize(label);
       const matches = products.filter((product) => {
         const full = normalize(product.name);
-        const shortName = normalize(product.name.replace(/^課堂示範商品[｜|]\s*/u, ""));
+        const shortName = normalize(product.name.replace(/^商品[｜|]\s*/u, ""));
         return normalize(product.sku) === needle || normalize(product.id) === needle || full.includes(needle) || shortName.includes(needle) || needle.includes(shortName);
       });
       if (matches.length !== 1) { missing.push(label); continue; }
       const product = matches[0];
       const total = Number(product.priceTwd) * quantity;
       if (!Number.isSafeInteger(total)) { missing.push(label); continue; }
-      lines.push({ name: product.name.replace(/^課堂示範商品[｜|]\s*/u, ""), quantity, unitPriceTwd: Number(product.priceTwd), lineTotalTwd: total });
+      lines.push({ name: product.name.replace(/^商品[｜|]\s*/u, ""), quantity, unitPriceTwd: Number(product.priceTwd), lineTotalTwd: total });
       subtotalTwd += total;
     }
     const found = lines.length > 0 && missing.length === 0 && Number.isSafeInteger(subtotalTwd);
     return {
       answerable: found,
       data: { lines, missing, subtotalTwd: found ? subtotalTwd : null, note: "模擬回覆 商品價格計算，非真實售價。" },
-      trace: { name, label: TOOL_LABELS[name], status: found ? "success" : "not_found", summary: found ? `由 SQLite 取價並以程式計算 ${lines.length} 項商品。` : "商品未能在 SQLite 示範商品表唯一匹配；不猜價格。" },
+      trace: { name, label: TOOL_LABELS[name], status: found ? "success" : "not_found", summary: found ? `由 SQLite 取價並以程式計算 ${lines.length} 項商品。` : "商品未能在 SQLite 商品表唯一匹配；不猜價格。" },
       sources: [],
     };
   }
@@ -367,22 +367,22 @@ function toolAnswer(name, data) {
   if (name === "search_faq") {
     const first = data.results?.[0];
     if (!first) return "目前在客服 SQLite 資料庫中查不到這項資訊，因此我不會自行推測。你可以選擇查詢官方客服管道。";
-    return `${first.isDemo ? "（課堂示範資料）" : ""}${first.answer}\n\n資料主題：${first.topic}。`;
+    return `${first.isDemo ? "（資料）" : ""}${first.answer}\n\n資料主題：${first.topic}。`;
   }
   if (name === "lookup_demo_record") {
     const record = data.record;
-    if (!record) return "在 SQLite 匿名示範紀錄中查不到這個代碼；本工具不連接或查詢真實訂單。";
-    return `這是虛構的課堂示範紀錄「${record.id}」。狀態：${record.status}。${record.summary}`;
+    if (!record) return "在 SQLite 匿名紀錄中查不到這個代碼；本工具不連接或查詢真實訂單。";
+    return `這是虛構紀錄「${record.id}」。狀態：${record.status}。${record.summary}`;
   }
   if (name === "calculate_demo_basket") {
-    if (data.missing?.length || data.subtotalTwd == null) return `我無法在 SQLite 示範商品表中唯一匹配：${(data.missing || []).join("、") || "指定商品"}；沒有猜測價格。`;
+    if (data.missing?.length || data.subtotalTwd == null) return `我無法在 SQLite 商品表中唯一匹配：${(data.missing || []).join("、") || "指定商品"}；沒有猜測價格。`;
     const money = (value) => `NT$${new Intl.NumberFormat("zh-TW", { maximumFractionDigits: 0 }).format(value)}`;
     const lines = data.lines.map((line) => `• ${line.name} × ${line.quantity}：${money(line.unitPriceTwd)} × ${line.quantity} = ${money(line.lineTotalTwd)}`);
-    return `${lines.join("\n")}\n示範小計：${money(data.subtotalTwd)}。\n\n${data.note}`;
+    return `${lines.join("\n")}\n小計：${money(data.subtotalTwd)}。\n\n${data.note}`;
   }
   if (typeof data.contactUrl !== "string") return "SQLite 客服資料中沒有官方聯絡資訊，因此我不會自行補充。";
   const phone = data.phone ? `免付費專線：${data.phone}。` : "";
-  return `這是本機課堂示範客服，沒有連接即時真人排班，也沒有替你送出訊息。請透過 7-ELEVEN 官方客服頁聯絡客服：${data.contactUrl}。${phone}具體服務時段請以官方頁面為準。`;
+  return `這客服，無連接即時真人排班，也沒有替你送出訊息。請透過 MINI-SEVEN 官方客服頁聯絡客服：${data.contactUrl}。${phone}具體服務時段請以官方頁面為準。`;
 }
 
 function parseToolArguments(raw) {
@@ -528,7 +528,7 @@ export async function runSupportAgent(message) {
     messages.push({ role: "system", content: `工具 ${name} 沒有找到可回答資料。請改用不同工具，通常應轉接官方真人客服。不得重複工具或直接回答。` });
   }
   return {
-    reply: "目前在本機 SQLite 客服資料中查不到足以回答的資訊，因此我不會自行推測。請透過官方客服管道確認。",
+    reply: "目前在 SQLite 客服資料中查不到足以回答的資訊，因此我不會自行推測。請透過官方客服管道確認。",
     trace: trace.length ? trace : [{ name: "search_faq", label: "客服 Agent", status: "error", summary: "沒有有效工具結果；已安全停止。" }],
     sources: dedupeSources(sources),
     needsHuman: true,
