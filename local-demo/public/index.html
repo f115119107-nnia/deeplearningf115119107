@@ -46,14 +46,14 @@
     <section class="support-section section-wrap" id="support">
       <div class="support-intro">
         <p class="eyebrow">MINI AI CUSTOMER SUPPORT</p><h2>顧客查詢，<br><em>AI 即時回覆。</em></h2>
-        <p>本機 Agent 每輪先選工具：結構化問題查 FAQ／示範紀錄／商品表，長篇規則以 RAG 擷取片段，再依來源回答。模型不可以只憑記憶回答，也不會查真實訂單或門市庫存。</p>
+        <p>Agent 每輪先選工具：結構化問題查 FAQ／紀錄／商品表，長篇規則以 RAG 擷取片段，再依來源回答。模型不會查真實訂單或門市庫存。</p>
         <div class="model-status" id="model-status" role="status">正在檢查本機 Ollama…</div>
         <div class="tool-legend"><span>SQLite FAQ</span><span>RAG 規則</span><span>模糊商品比對</span><span>確認後才寫入</span><span>English／繁中</span></div>
       </div>
       <div class="chat-card">
         <div class="chat-header"><div class="avatar">7</div><div><strong>小七超商客服 Agent</strong><small>Ollama · tool-first · RAG</small></div><span class="live-indicator">LOCAL</span></div>
         <div class="chat-messages" id="chat-messages" aria-live="polite" aria-label="客服對話">
-          <article class="message message-agent"><div class="bubble">嗨！我是小七超商客服 Agent。我會先查詢 FAQ、規則或示範資料；預留只有在你明確確認後才會寫入本機資料庫。</div></article>
+          <article class="message message-agent"><div class="bubble">嗨！我是小七超商客服 Agent。我會先查詢 FAQ、規則或資料。</div></article>
         </div>
         <div class="suggestions" id="suggestions">
           <button type="button" data-prompt="冰咖啡兩杯多少錢？">冰咖啡兩杯多少錢？</button>
