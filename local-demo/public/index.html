@@ -14,7 +14,7 @@
   <div class="demo-ribbon">小七超商模擬店家 · 商品與價格皆為展示資料 · 不連接 Shopify、不收款</div>
   <header class="site-header">
     <a class="brand" href="#home" aria-label="小七補給站首頁">
-      <span class="brand-mark">7</span><span class="brand-name"><strong>小七超商</strong><small>MINI SEVEN STORE</small></span>
+      <span class="brand-mark">7</span><span class="brand-name"><strong>小七超商</strong><small>MINI-SEVEN STORE</small></span>
     </a>
     <nav aria-label="主要導覽"><a href="#shelf">今日優惠商品</a><a href="#support">AI 客服</a></nav>
     <button class="bag-trigger" id="bag-trigger" type="button" aria-label="開啟本機購物袋">購物袋 <span id="bag-count">0</span></button>
@@ -32,7 +32,7 @@
       </div>
       <div class="hero-art" aria-label="本機展示店視覺">
         <div class="art-orbit"></div><div class="art-card art-card-back"><span>AI Dialogue</span><strong>顧客查詢<br>即時回覆</strong></div>
-        <div class="art-card art-card-front"><div class="art-stripes"><i></i><i></i><i></i></div><span>01 / MINI SEVEN STORE</span><strong>小七超商</strong><small>模擬展示 · 無真實交易</small></div>
+        <div class="art-card art-card-front"><div class="art-stripes"><i></i><i></i><i></i></div><span>01 / MINI-SEVEN STORE</span><strong>小七超商</strong><small>模擬展示 · 無真實交易</small></div>
         <span class="art-sticker">RAG<br>LOCAL</span>
       </div>
     </section>
@@ -57,7 +57,7 @@
         </div>
         <div class="suggestions" id="suggestions">
           <button type="button" data-prompt="冰咖啡兩杯多少錢？">冰咖啡兩杯多少錢？</button>
-          <button type="button" data-prompt="示範預留需要怎麼確認？">預留需要怎麼確認？</button>
+          <button type="button" data-prompt="預留需要怎麼確認？">預留需要怎麼確認？</button>
           <button type="button" data-prompt="What is the price of oat milk?">What is the price of oat milk?</button>
           <button type="button" data-prompt="查詢 DEMO-PARCEL-001">查詢 DEMO-PARCEL-001</button>
         </div>
@@ -70,12 +70,12 @@
   <footer class="site-footer"><a class="brand brand-footer" href="#home"><span class="brand-mark">7</span><span class="brand-name"><strong>小七超商</strong><small>本機課堂示範</small></span></a><p>公開 FAQ 依官方來源頁整理；RAG 規則、商品與預留皆為本專案虛構示範。此本機展示不連接 Shopify，不建立真實訂單或付款。</p><a href="https://www.7-11.com.tw/faq.aspx" target="_blank" rel="noreferrer">7-ELEVEN 官方客服頁 ↗</a></footer>
 
   <dialog class="bag-dialog" id="bag-dialog" aria-labelledby="bag-title">
-    <div class="bag-heading"><div><p class="eyebrow">LOCAL DEMO CART</p><h2 id="bag-title">本機購物袋</h2></div><button id="bag-close" class="icon-button" type="button" aria-label="關閉購物袋">×</button></div>
+    <div class="bag-heading"><div><p class="eyebrow">CART</p><h2 id="bag-title">購物袋</h2></div><button id="bag-close" class="icon-button" type="button" aria-label="關閉購物袋">×</button></div>
     <div id="bag-lines" class="bag-lines"></div>
-    <div class="bag-total"><span>虛構示範小計</span><strong id="bag-subtotal">NT$0</strong></div>
+    <div class="bag-total"><span>小計</span><strong id="bag-subtotal">NT$0</strong></div>
     <p class="bag-notice">本機購物袋只保存在此瀏覽器，不會傳送給 Shopify；「示範預留」需在客服聊天中另外明確確認。</p>
-    <button id="demo-checkout" class="button button-green checkout-button" type="button">查看本機模式說明 <span>↗</span></button>
-    <section class="reservation-history" aria-labelledby="reservation-title"><h3 id="reservation-title">此 session 已保存的示範預留</h3><div id="reservation-list" class="reservation-list"><p class="reservation-empty">載入中…</p></div></section>
+    <button id="demo-checkout" class="button button-green checkout-button" type="button">查看模式說明 <span>↗</span></button>
+    <section class="reservation-history" aria-labelledby="reservation-title"><h3 id="reservation-title">此 session 已保存的預留</h3><div id="reservation-list" class="reservation-list"><p class="reservation-empty">載入中…</p></div></section>
   </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
